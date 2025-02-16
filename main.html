@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #333;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        nav a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: #333;
+            position: relative;
+            font-weight: 600;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #007bff;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(banner.png);
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero span {
+            font-family: 'Montserrat', sans-serif;
+            color: #007bff;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            margin-top: 15px;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+        }
+
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            border-radius: 50%;
+            animation: rippleEffect 1s linear infinite;
+        }
+
+        @keyframes rippleEffect {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0.5;
+            }
+            100% {
+                width: 500px;
+                height: 500px;
+                opacity: 0;
+            }
+        }
+
+        /* Blog Section */
+        .blog-section {
+            padding: 5rem 10%;
+            background: white;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-content p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Categories Section */
+        .categories-section {
+            background: #f8f9fa;
+            padding: 5rem 10%;
+            text-align: center;
+        }
+
+        .category-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .category-btn {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .category-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        /* Hover colors for each category */
+        .category-btn.travel:hover { background: #FF6B6B; }
+        .category-btn.technology:hover { background: #4834D4; }
+        .category-btn.lifestyle:hover { background: #6AB04C; }
+        .category-btn.food:hover { background: #EB4D4B; }
+        .category-btn.photography:hover { background: #22A6B3; }
+        .category-btn.health:hover { background: #26de81; }
+        .category-btn.business:hover { background: #4834d4; }
+        .category-btn.art:hover { background: #e056fd; }
+        .category-btn.music:hover { background: #ff7979; }
+        .category-btn.fashion:hover { background: #be2edd; }
+        .category-btn.education:hover { background: #f0932b; }
+        .category-btn.sports:hover { background: #009432; }
+        .category-btn.science:hover { background: #0652DD; }
+        .category-btn.gaming:hover { background: #9b59b6; }
+        .category-btn.books:hover { background: #cc8e35; }
+
+        /* Subscribe Section */
+        .subscribe-section {
+            padding: 5rem 10%;
+            text-align: center;
+            background: #007bff;
+            color: white;
+        }
+
+        .subscribe-form {
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .subscribe-form input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .subscribe-btn {
+            padding: 1rem 2rem;
+            background: white;
+            color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-btn:hover {
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 5%;
+            background: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: rotate(360deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-buttons {
+                gap: 1rem;
+            }
+
+            .category-btn {
+                width: 100px;
+                height: 100px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">BlogSpot</a>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#blog">Blog</a>
+            <a href="#categories">Categories</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>Welcome to <span>BlogSpot</span></h1>
+        <p>Discover amazing stories and insights</p>
+        <button class="cta-button">Start Reading</button>
+    </section>
+
+    <section class="blog-section" id="blog">
+        <h2>Latest Posts</h2>
+        <div class="blog-grid">
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="writing.jpg" alt="Blog post">
+                </div>
+                <div class="blog-content">
+                    <h3>The Art of Writing</h3>
+                    <p>Explore the creative process of writing and storytelling...</p>
+                </div>
+            </article>
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="nature.webp" alt="Blog post">
+                </div>
+                <div class="blog-content">
+                    <h3>Digital Photography</h3>
+                    <p>Master the basics of digital photography and composition...</p>
+                </div>
+            </article>
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="travel.avif" alt="Blog post">
+                </div>
+                <div class="blog-content">
+                    <h3>Travel Adventures</h3>
+                    <p>Join us on an exciting journey around the world...</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="categories-section" id="categories">
+        <h2>Categories</h2>
+        <div class="category-buttons">
+            <div class="category-btn travel">Travel</div>
+            <div class="category-btn technology">Technology</div>
+            <div class="category-btn lifestyle">Lifestyle</div>
+            <div class="category-btn food">Food</div>
+            <div class="category-btn photography">Photography</div>
+            <div class="category-btn health">Health & Wellness</div>
+            <div class="category-btn business">Business</div>
+            <div class="category-btn art">Art & Design</div>
+            <div class="category-btn music">Music</div>
+            <div class="category-btn fashion">Fashion</div>
+            <div class="category-btn education">Education</div>
+            <div class="category-btn sports">Sports</div>
+            <div class="category-btn science">Science</div>
+            <div class="category-btn gaming">Gaming</div>
+        </div>
+    </section>
+
+    <section class="subscribe-section" id="contact">
+        <h2>Stay Updated</h2>
+        <form class="subscribe-form">
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Your Email">
+            <button type="submit" class="subscribe-btn">Subscribe</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Made by Sharan Deepak 24CSB0B67</p>
+        <div class="social-icons">
+            <a href="https://instagram.com" target="_blank"><img style="height: 30px;" src="instagram.png"></img></a>
+            <a href="https://facebook.com" target="_blank"><img style="height: 30px;" src="facebook.webp"></img></a>
+            <a href="https://twitter.com" target="_blank"><img style="height: 30px;" src="twitter.png"></img></a>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            // Remove any existing ripple elements
+            const existingRipples = this.getElementsByClassName('ripple');
+            Array.from(existingRipples).forEach(ripple => ripple.remove());
+
+            // Create new ripple element
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            
+            // Position the ripple where clicked
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            // Add ripple to button
+            this.appendChild(ripple);
+            
+            // Remove ripple after animation
+            setTimeout(() => {
+                ripple.remove();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
