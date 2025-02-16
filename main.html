@@ -22,7 +22,6 @@
             background-color: #f9f9f9;
         }
 
-        /* Header Styles */
         header {
             position: fixed;
             top: 0;
@@ -68,7 +67,6 @@
             width: 100%;
         }
 
-        /* Hero Section */
         .hero {
             height: 90vh;
             display: flex;
@@ -142,7 +140,6 @@
             }
         }
 
-        /* Blog Section */
         .blog-section {
             padding: 5rem 10%;
             background: white;
@@ -198,7 +195,6 @@
             color: #555;
         }
 
-        /* Categories Section */
         .categories-section {
             background: #f8f9fa;
             padding: 5rem 10%;
@@ -233,7 +229,6 @@
             color: white;
         }
 
-        /* Hover colors for each category */
         .category-btn.travel:hover { background: #FF6B6B; }
         .category-btn.technology:hover { background: #4834D4; }
         .category-btn.lifestyle:hover { background: #6AB04C; }
@@ -250,7 +245,6 @@
         .category-btn.gaming:hover { background: #9b59b6; }
         .category-btn.books:hover { background: #cc8e35; }
 
-        /* Subscribe Section */
         .subscribe-section {
             padding: 5rem 10%;
             text-align: center;
@@ -285,7 +279,6 @@
             box-shadow: 0 0 20px rgba(255,255,255,0.5);
         }
 
-        /* Footer */
         footer {
             padding: 2rem 5%;
             background: #333;
@@ -310,7 +303,6 @@
             transform: rotate(360deg);
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
@@ -334,6 +326,39 @@
                 font-size: 0.9rem;
             }
         }
+
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    background: #071551be;
+    padding: 0.5rem 0;
+    color: white;
+    margin-top: 4rem; 
+}
+
+.marquee-content {
+    display: inline-block;
+    white-space: nowrap;
+    margin-top: 10px;
+    animation: marquee 20s linear infinite;
+}
+
+.marquee-content span {
+    font-weight: 600;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.hero {
+    margin-top: 0;
+}   
     </style>
 </head>
 <body>
@@ -348,6 +373,13 @@
         </nav>
     </header>
 
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>Latest News: BlogSpot reaches 1 million subscribers! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>New feature: Personalized reading recommendations coming soon! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>Join our writer's workshop this weekend! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+    </div>
     <section class="hero" id="home">
         <h1>Welcome to <span>BlogSpot</span></h1>
         <p>Discover amazing stories and insights</p>
@@ -427,25 +459,21 @@
 
     <script>
         document.querySelector('.cta-button').addEventListener('click', function(e) {
-            // Remove any existing ripple elements
+
             const existingRipples = this.getElementsByClassName('ripple');
             Array.from(existingRipples).forEach(ripple => ripple.remove());
 
-            // Create new ripple element
             const ripple = document.createElement('span');
             ripple.classList.add('ripple');
-            
-            // Position the ripple where clicked
+
             const rect = this.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             ripple.style.left = x + 'px';
             ripple.style.top = y + 'px';
-            
-            // Add ripple to button
+
             this.appendChild(ripple);
-            
-            // Remove ripple after animation
+
             setTimeout(() => {
                 ripple.remove();
             }, 1000);
